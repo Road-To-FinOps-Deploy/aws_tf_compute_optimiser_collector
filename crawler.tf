@@ -5,7 +5,7 @@ resource "aws_glue_crawler" "ec2_compute_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_EC2"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_ec2_instance"
   }
 
   configuration = <<EOF
@@ -25,7 +25,47 @@ resource "aws_glue_crawler" "auto_compute_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_Auto_Scale"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_auto_scale"
+  }
+
+  configuration = <<EOF
+    {"Version":1.0,"CrawlerOutput":{"Partitions":{"AddOrUpdateBehavior":"InheritFromTable"}}}
+EOF
+
+
+  tags = {
+    Team = "FinOps"
+  }
+}
+
+resource "aws_glue_crawler" "lambda_optimizer" {
+  database_name = "${var.athena_database}${var.env}"
+  name          = "lambda_optimizer${var.env}"
+  role          = aws_iam_role.compute_optimizer_role.arn
+  schedule      = "cron(07 10 * * ? *)"
+
+  s3_target {
+    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_lambda"
+  }
+
+  configuration = <<EOF
+    {"Version":1.0,"CrawlerOutput":{"Partitions":{"AddOrUpdateBehavior":"InheritFromTable"}}}
+EOF
+
+
+  tags = {
+    Team = "FinOps"
+  }
+}
+
+resource "aws_glue_crawler" "ebs_volumes_optimizer" {
+  database_name = "${var.athena_database}${var.env}"
+  name          = "ebs_volumes_optimizer${var.env}"
+  role          = aws_iam_role.compute_optimizer_role.arn
+  schedule      = "cron(07 10 * * ? *)"
+
+  s3_target {
+    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_ebs_volume"
   }
 
   configuration = <<EOF

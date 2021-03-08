@@ -98,7 +98,7 @@ def s3_upload(recommendations, Region, account_id):
         S3BucketName = os.environ["BUCKET_NAME"]
         s3 = boto3.client('s3', Region,
                             config=Config(s3={'addressing_style': 'path'}))
-        s3.upload_file(f'/tmp/{recommendations}_recommendations.json', S3BucketName, f"Compute_Optimizer/Compute_Optimizer_{recommendations}/year={year}/month={month}/{recommendations}_instance_recommendations_{account_id}.json")
+        s3.upload_file(f'/tmp/{recommendations}_recommendations.json', S3BucketName, f"Compute_Optimizer/Compute_Optimizer_{recommendations}/year={year}/month={month}/{recommendations}_recommendations_{account_id}.json")
         print(f"ec2 data in s3 {S3BucketName}")
     except Exception as e:
         # Send some context about this error to Lambda Logs
