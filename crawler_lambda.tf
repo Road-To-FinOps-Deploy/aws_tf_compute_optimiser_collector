@@ -8,7 +8,7 @@ data "archive_file" "start_crawler" {
 
 resource "aws_lambda_function" "start_crawler" {
   filename         = "${path.module}/output/start_crawler.zip"
-  function_name    = "org_account_collector${var.env}"
+  function_name    = "start_crawler${var.env}"
   role             = aws_iam_role.iam_role_for_accounts.arn
   handler          = "start_crawler.lambda_handler"
   source_code_hash = data.archive_file.start_crawler.output_base64sha256
