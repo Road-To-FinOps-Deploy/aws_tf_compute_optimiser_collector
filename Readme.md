@@ -11,7 +11,7 @@ Example Queries can be found in the athena_queries folder.
 ```
 module "aws_tf_compute_optimiser_collector" {
   source = "/aws_tf_compute_optimiser_collector"
-  bucket_name = "existing_bucket_name"
+  bucket_name = "bucket name"
   athena_database = "Existing_athena_database_name"
   alarm_email = "example@email.com"
 }
