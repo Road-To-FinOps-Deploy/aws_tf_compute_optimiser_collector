@@ -56,3 +56,14 @@ resource "aws_s3_bucket_policy" "b" {
 
   )
 }
+
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  bucket = aws_s3_bucket.s3_bucket.id
+
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.start_crawler.arn
+    events              = ["s3:ObjectCreated:*"]
+    filter_suffix       = ".json"
+	filter_prefix       = "Compute_Optimizer/Compute_Optimizer_ebs_volume/"
+  }
+}
