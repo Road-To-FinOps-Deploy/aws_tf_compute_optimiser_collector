@@ -32,26 +32,27 @@ resource "aws_lambda_function" "start_crawler" {
   }
 }
 
-resource "aws_lambda_permission" "allow_cloudwatch_start_crawler" {
-  statement_id  = "AllowExecutionFromCloudWatch"
+resource "aws_lambda_permission" "allow_s3_start_crawler" {
+  statement_id  = "AllowExecutionFroms3"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.start_crawler.function_name
-  principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.start_crawler_cloudwatch_rule.arn
+  principal     = "s3.amazonaws.com"
+  source_arn    = "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"
+  source_account = data.aws_caller_identity.current.account_id
 
   depends_on = [aws_lambda_function.start_crawler]
 }
 
-resource "aws_cloudwatch_event_rule" "start_crawler_cloudwatch_rule" {
-  name                = "${aws_lambda_function.start_crawler.function_name}_trigger"
-  schedule_expression = var.first_of_the_month_cron
-}
+# resource "aws_cloudwatch_event_rule" "start_crawler_cloudwatch_rule" {
+#   name                = "${aws_lambda_function.start_crawler.function_name}_trigger"
+#   schedule_expression = var.first_of_the_month_cron
+# }
 
-resource "aws_cloudwatch_event_target" "start_crawler_lambda" {
-  rule      = aws_cloudwatch_event_rule.start_crawler_cloudwatch_rule.name
-  target_id = "${aws_lambda_function.start_crawler.function_name}_target"
-  arn       = aws_lambda_function.start_crawler.arn
-}
+# resource "aws_cloudwatch_event_target" "start_crawler_lambda" {
+#   rule      = aws_cloudwatch_event_rule.start_crawler_cloudwatch_rule.name
+#   target_id = "${aws_lambda_function.start_crawler.function_name}_target"
+#   arn       = aws_lambda_function.start_crawler.arn
+# }
 
 resource "aws_cloudwatch_metric_alarm" "account_collector_lambda_function_error_alarm" {
   alarm_name                = "${aws_lambda_function.start_crawler.function_name}_lambda_error_alarm"
