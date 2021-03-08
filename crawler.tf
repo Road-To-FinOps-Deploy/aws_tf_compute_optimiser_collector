@@ -1,11 +1,11 @@
 resource "aws_glue_crawler" "ec2_compute_optimizer" {
-  database_name = "${var.cur_database}${var.env}"
+  database_name = "${var.athena_database}${var.env}"
   name          = "ec2_compute_optimizer${var.env}"
   role          = aws_iam_role.compute_optimizer_role.arn
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${var.cur_bucket}${var.env}/Compute_Optimizer/Compute_Optimizer_EC2"
+    path = "s3://${var.bucket_name}${var.env}/Compute_Optimizer/Compute_Optimizer_EC2"
   }
 
   configuration = <<EOF
@@ -19,13 +19,13 @@ EOF
 }
 
 resource "aws_glue_crawler" "auto_compute_optimizer" {
-  database_name = "${var.cur_database}${var.env}"
+  database_name = "${var.athena_database}${var.env}"
   name          = "auto_compute_optimizer${var.env}"
   role          = aws_iam_role.compute_optimizer_role.arn
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${var.cur_bucket}${var.env}/Compute_Optimizer/Compute_Optimizer_Auto_Scale"
+    path = "s3://${var.bucket_name}${var.env}/Compute_Optimizer/Compute_Optimizer_Auto_Scale"
   }
 
   configuration = <<EOF
@@ -139,7 +139,7 @@ resource "aws_iam_role_policy" "compute_optimizer_role_policy" {
 "s3:PutObject"
 ],
 "Resource": [
-"arn:aws:s3:::${var.cur_bucket}${var.env}/*"
+"arn:aws:s3:::${var.bucket_name}${var.env}/*"
 ]
 }
 ]

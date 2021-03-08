@@ -18,7 +18,7 @@ module "lambda_compute_optimiser" {
   // Add environment variables.
   environment = {
     variables = {
-      BUCKET_NAME = "${var.cur_bucket}${var.env}"
+      BUCKET_NAME = "${var.bucket_name}${var.env}"
       REGION      = var.region
       QUE_URL     = aws_sqs_queue.co_account_que.id
     }

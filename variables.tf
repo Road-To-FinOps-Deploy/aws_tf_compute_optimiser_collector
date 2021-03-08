@@ -1,6 +1,6 @@
-variable "cur_database" {}
+variable "athena_database" {}
 
-variable "cur_bucket" {}
+variable "bucket_name" {}
 
 variable "alarm_email" {}
 
