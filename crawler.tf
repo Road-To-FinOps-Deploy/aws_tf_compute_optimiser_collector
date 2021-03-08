@@ -5,7 +5,7 @@ resource "aws_glue_crawler" "ec2_compute_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${var.bucket_name}${var.env}/Compute_Optimizer/Compute_Optimizer_EC2"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_EC2"
   }
 
   configuration = <<EOF
@@ -25,7 +25,7 @@ resource "aws_glue_crawler" "auto_compute_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${var.bucket_name}${var.env}/Compute_Optimizer/Compute_Optimizer_Auto_Scale"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_Auto_Scale"
   }
 
   configuration = <<EOF
@@ -139,7 +139,7 @@ resource "aws_iam_role_policy" "compute_optimizer_role_policy" {
 "s3:PutObject"
 ],
 "Resource": [
-"arn:aws:s3:::${var.bucket_name}${var.env}/*"
+"arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}${var.env}/*"
 ]
 }
 ]
