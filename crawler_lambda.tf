@@ -54,7 +54,7 @@ resource "aws_lambda_permission" "allow_s3_start_crawler" {
 #   arn       = aws_lambda_function.start_crawler.arn
 # }
 
-resource "aws_cloudwatch_metric_alarm" "account_collector_lambda_function_error_alarm" {
+resource "aws_cloudwatch_metric_alarm" "account_crawler_lambda_function_error_alarm" {
   alarm_name                = "${aws_lambda_function.start_crawler.function_name}_lambda_error_alarm"
   comparison_operator       = var.cloudwatch_metric_alarm_comparison_operator
   evaluation_periods        = var.cloudwatch_metric_alarm_evaulation_periods
