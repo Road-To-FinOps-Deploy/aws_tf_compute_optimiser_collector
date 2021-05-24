@@ -1,5 +1,5 @@
 module "lambda_compute_optimiser" {
-  source = "github.com/claranet/terraform-aws-lambda.git?ref=v1.2.0"
+  source = "github.com/claranet/terraform-aws-lambda.git?ref=v1.3.0"
 
   function_name = "compute_optimiser_collector${var.env}"
   description   = "compute optimiser$ collector"
