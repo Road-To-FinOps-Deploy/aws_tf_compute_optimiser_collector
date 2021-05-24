@@ -212,3 +212,7 @@ EOF
   }
 }
 
+resource "aws_iam_role_policy_attachment" "test-attach" {
+  role       = aws_iam_role.compute_optimizer_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+}
