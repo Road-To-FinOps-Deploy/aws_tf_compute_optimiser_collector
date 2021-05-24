@@ -11,7 +11,7 @@ Example Queries can be found in the athena_queries folder.
 ```
 module "aws_tf_compute_optimiser_collector" {
   source = "/aws_tf_compute_optimiser_collector"
-  bucket_name = "bucket name"
+  bucket_name = "bucket name "
   athena_database = "Existing_athena_database_name"
   alarm_email = "example@email.com"
 }
@@ -21,10 +21,10 @@ module "aws_tf_compute_optimiser_collector" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bucket\_name | Bucket name for your CO data to be stored in| string | `""` | Yes
+| bucket\_name | Bucket name for your CO data to be stored in that will be created| string | `""` | Yes
 | athena\_database | Existing Athena database to query data from| string | `""` | Yes
 | alarm\_email | Email to send alerts too| string | `"cron(0 7 ? * MON-FRI *)"` | Yes
-| function\_prefix | Prefix for the name of the lambda created | string | `""` | no |
+| env | End for the name of the resources created | string | `""` | no |
 
 
 ## Testing  
