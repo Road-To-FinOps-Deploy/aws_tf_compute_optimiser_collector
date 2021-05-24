@@ -5,7 +5,7 @@ resource "aws_glue_crawler" "ec2_compute_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_ec2_instance"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}/Compute_Optimizer/Compute_Optimizer_ec2_instance"
   }
 
   configuration = <<EOF
@@ -25,7 +25,7 @@ resource "aws_glue_crawler" "auto_compute_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_auto_scale"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}/Compute_Optimizer/Compute_Optimizer_auto_scale"
   }
 
   configuration = <<EOF
@@ -45,7 +45,7 @@ resource "aws_glue_crawler" "lambda_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_lambda"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}/Compute_Optimizer/Compute_Optimizer_lambda"
   }
 
   configuration = <<EOF
@@ -65,7 +65,7 @@ resource "aws_glue_crawler" "ebs_volumes_optimizer" {
   schedule      = "cron(07 10 * * ? *)"
 
   s3_target {
-    path = "s3://${aws_s3_bucket.s3_bucket.id}${var.env}/Compute_Optimizer/Compute_Optimizer_ebs_volume"
+    path = "s3://${aws_s3_bucket.s3_bucket.id}/Compute_Optimizer/Compute_Optimizer_ebs_volume"
   }
 
   configuration = <<EOF
