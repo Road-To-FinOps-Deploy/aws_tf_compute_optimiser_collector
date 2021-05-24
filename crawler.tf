@@ -1,5 +1,5 @@
 resource "aws_glue_crawler" "ec2_compute_optimizer" {
-  database_name = "${var.athena_database}${var.env}"
+  database_name = "${var.athena_database}"
   name          = "ec2_compute_optimizer${var.env}"
   role          = aws_iam_role.compute_optimizer_role.arn
   schedule      = "cron(07 10 * * ? *)"
@@ -19,7 +19,7 @@ EOF
 }
 
 resource "aws_glue_crawler" "auto_compute_optimizer" {
-  database_name = "${var.athena_database}${var.env}"
+  database_name = "${var.athena_database}"
   name          = "auto_compute_optimizer${var.env}"
   role          = aws_iam_role.compute_optimizer_role.arn
   schedule      = "cron(07 10 * * ? *)"
@@ -39,7 +39,7 @@ EOF
 }
 
 resource "aws_glue_crawler" "lambda_optimizer" {
-  database_name = "${var.athena_database}${var.env}"
+  database_name = "${var.athena_database}"
   name          = "lambda_optimizer${var.env}"
   role          = aws_iam_role.compute_optimizer_role.arn
   schedule      = "cron(07 10 * * ? *)"
@@ -59,7 +59,7 @@ EOF
 }
 
 resource "aws_glue_crawler" "ebs_volumes_optimizer" {
-  database_name = "${var.athena_database}${var.env}"
+  database_name = "${var.athena_database}"
   name          = "ebs_volumes_optimizer${var.env}"
   role          = aws_iam_role.compute_optimizer_role.arn
   schedule      = "cron(07 10 * * ? *)"
