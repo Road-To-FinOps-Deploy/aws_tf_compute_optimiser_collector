@@ -1,7 +1,7 @@
 # Compute optimiser collector
 
 The purpose of this module is to collect all compute optimisation recommendations from all account in an organisation and put them into one location. This can then be queried using Athena.
-It is to be deployed into the management account or any account that has access to the organisations data.
+It is to be deployed into the *management account* or any account that has access to the organisations data.
 
 Example Queries can be found in the athena_queries folder.
 
@@ -25,9 +25,16 @@ module "aws_tf_compute_optimiser_collector" {
 | athena\_database | Existing Athena database to query data from| string | `""` | Yes
 | alarm\_email | Email to send alerts too| string | `"cron(0 7 ? * MON-FRI *)"` | Yes
 | env | End for the name of the resources created | string | `""` | no |
+| region | Region it will be deployed into | string | `"eu-west-1"` | no |
 
 
-## Testing  
+## Testing  Deployment
+* Go to AWS Lambda
+* Find the *org_account_collector* lambda and run a test
+* this will pass the account IDs into the SQS and then the compute_optimiser_collector lambda will run these
+* the data will then be placed into the s3 bucket that was created
+
+## Contribution Testing  
 
 Configure your AWS credentials using one of the [supported methods for AWS CLI
    tools](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html), such as setting the
