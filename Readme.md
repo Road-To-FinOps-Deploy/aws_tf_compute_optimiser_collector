@@ -14,6 +14,7 @@ module "aws_tf_compute_optimiser_collector" {
   bucket_name = "bucket name "
   athena_database = "Existing_athena_database_name"
   alarm_email = "example@email.com"
+  region = "eu-west-1"
 }
 ```
 
@@ -25,7 +26,7 @@ module "aws_tf_compute_optimiser_collector" {
 | athena\_database | Existing Athena database to query data from| string | `""` | Yes
 | alarm\_email | Email to send alerts too| string | `"example@email.com"` | Yes
 | env | End for the name of the resources created | string | `""` | no |
-| region | Region it will be deployed into | string | `"eu-west-1"` | no |
+| region | Region it will be deployed into | string | `""` | yes |
 
 
 ## Testing  Deployment

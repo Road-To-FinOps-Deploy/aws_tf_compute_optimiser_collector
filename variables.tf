@@ -4,9 +4,7 @@ variable "bucket_name" {}
 
 variable "alarm_email" {}
 
-variable "region" {
-  default = "eu-west-1"
-}
+variable "region" {}
 
 variable "aws_co_cron" {
   default = "cron(16 1 * ? * *)"
