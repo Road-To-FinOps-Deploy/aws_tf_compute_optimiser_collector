@@ -23,7 +23,7 @@ module "aws_tf_compute_optimiser_collector" {
 |------|-------------|:----:|:-----:|:-----:|
 | bucket\_name | Bucket name for your CO data to be stored in that will be created| string | `""` | Yes
 | athena\_database | Existing Athena database to query data from| string | `""` | Yes
-| alarm\_email | Email to send alerts too| string | `"cron(0 7 ? * MON-FRI *)"` | Yes
+| alarm\_email | Email to send alerts too| string | `"example@email.com"` | Yes
 | env | End for the name of the resources created | string | `""` | no |
 | region | Region it will be deployed into | string | `"eu-west-1"` | no |
 
