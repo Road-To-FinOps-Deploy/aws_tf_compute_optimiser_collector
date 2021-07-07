@@ -45,3 +45,6 @@ variable "env" {
 variable "first_of_the_month_cron" {
   default = "cron(16 1 * ? * *)"
 }
+variable "enable_cloudwatch_event" {
+  default = true
+}
