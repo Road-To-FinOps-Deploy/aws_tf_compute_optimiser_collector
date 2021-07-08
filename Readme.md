@@ -33,6 +33,9 @@ Choice:
 | specific_accounts | Pass in string in this format with account ids. Must have enable_cloudwatch_event as true "{ \"Records\":[ { \"messageId\":\"1\", \"body\":\"123456789\" }, {\"messageId\":\"2\", \"body\":\"987654312\" } ] }" | string | `""` | no |
 
 
+## Diagram 
+![COC](COC.png)
+
 ## Testing  Deployment
 * Go to AWS Lambda
 * Find the *org_account_collector* lambda and run a test
