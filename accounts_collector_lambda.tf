@@ -29,27 +29,31 @@ resource "aws_lambda_function" "accounts_collector" {
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_accounts_collector" {
+  count         = var.enable_accounts_collector ? 1 : 0
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.accounts_collector.function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.accounts_collector_cloudwatch_rule.arn
+  source_arn    = aws_cloudwatch_event_rule.accounts_collector_cloudwatch_rule[count.index].arn
 
   depends_on = [aws_lambda_function.accounts_collector]
 }
 
 resource "aws_cloudwatch_event_rule" "accounts_collector_cloudwatch_rule" {
+  count               = var.enable_accounts_collector ? 1 : 0
   name                = "${aws_lambda_function.accounts_collector.function_name}_trigger"
   schedule_expression = var.first_of_the_month_cron
 }
 
 resource "aws_cloudwatch_event_target" "accounts_collector_lambda" {
-  rule      = aws_cloudwatch_event_rule.accounts_collector_cloudwatch_rule.name
+  count     = var.enable_accounts_collector ? 1 : 0
+  rule      = aws_cloudwatch_event_rule.accounts_collector_cloudwatch_rule[count.index].name
   target_id = "${aws_lambda_function.accounts_collector.function_name}_target"
   arn       = aws_lambda_function.accounts_collector.arn
 }
 
 resource "aws_cloudwatch_metric_alarm" "account_collector_lambda_function_error_alarm" {
+  count                     = var.enable_accounts_collector ? 1 : 0
   alarm_name                = "${aws_lambda_function.accounts_collector.function_name}_lambda_error_alarm"
   comparison_operator       = var.cloudwatch_metric_alarm_comparison_operator
   evaluation_periods        = var.cloudwatch_metric_alarm_evaulation_periods

@@ -14,40 +14,40 @@ resource "aws_s3_bucket_policy" "b" {
   # Terraform's "jsonencode" function converts a
   # Terraform expression's result to valid JSON syntax.
   policy = jsonencode(
-      {
-	"Version": "2012-10-17",
-	"Statement": [
-    	{
-        	"Effect": "Allow",
-        	"Principal": {
-            	"Service": "compute-optimizer.amazonaws.com"
-        	},
-        	"Action": "s3:GetBucketAcl",
-        	"Resource": "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"
-    	},
-    	{
-        	"Effect": "Allow",
-        	"Principal": {
-            	"Service": "compute-optimizer.amazonaws.com"
-            },
-        	"Action": "s3:GetBucketPolicyStatus",
-        	"Resource": "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"
-    	},
-    	{
-        	"Effect": "Allow",
-        	"Principal": {
-            	"Service": "compute-optimizer.amazonaws.com"
-        	},
-        	"Action": "s3:PutObject",
-        	"Resource": "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}/*",
-        	"Condition": {
-            	"StringEquals": {
-                	"s3:x-amz-acl": "bucket-owner-full-control"
-            	}
-        	}
-    	}
-	]
-}
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Principal" : {
+            "Service" : "compute-optimizer.amazonaws.com"
+          },
+          "Action" : "s3:GetBucketAcl",
+          "Resource" : "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"
+        },
+        {
+          "Effect" : "Allow",
+          "Principal" : {
+            "Service" : "compute-optimizer.amazonaws.com"
+          },
+          "Action" : "s3:GetBucketPolicyStatus",
+          "Resource" : "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"
+        },
+        {
+          "Effect" : "Allow",
+          "Principal" : {
+            "Service" : "compute-optimizer.amazonaws.com"
+          },
+          "Action" : "s3:PutObject",
+          "Resource" : "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}/*",
+          "Condition" : {
+            "StringEquals" : {
+              "s3:x-amz-acl" : "bucket-owner-full-control"
+            }
+          }
+        }
+      ]
+    }
 
   )
 }
@@ -59,6 +59,6 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     lambda_function_arn = aws_lambda_function.start_crawler.arn
     events              = ["s3:ObjectCreated:*"]
     filter_suffix       = ".json"
-	filter_prefix       = "Compute_Optimizer/Compute_Optimizer_ebs_volume/"
+    filter_prefix       = "Compute_Optimizer/Compute_Optimizer_ebs_volume/"
   }
 }

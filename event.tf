@@ -10,23 +10,12 @@ resource "aws_cloudwatch_event_target" "cloudwatch_event_target" {
   rule      = aws_cloudwatch_event_rule.finops[count.index].name
   arn       = module.lambda_compute_optimiser.function_arn
 
-  input = "{ \"Records\":[ { \"messageId\":\"1\", \"body\":\"455007007237\" }, {\"messageId\":\"2\", \"body\":\"423143053313\" } ] }"
+  input = var.specific_accounts 
 }
-
-# data "template_file" "sql" {
-#   template = var.query_location
-
-#   vars = {
-#     Database_Value = "kpmgcostanalysisathenadatabase${var.env}"
-#     Team_Value     = var.team
-#     Icm_Db_Val     = "icminfra${var.icm_env}"
-#   }
-# }
-
 
 
 resource "aws_lambda_permission" "allow_cloudwatch_account_event" {
-  count               = var.enable_cloudwatch_event ? 1 : 0
+  count         = var.enable_cloudwatch_event ? 1 : 0
   statement_id  = "AllowExecutionFromCloudWatchEvent"
   action        = "lambda:InvokeFunction"
   function_name = module.lambda_compute_optimiser.function_arn
@@ -37,7 +26,7 @@ resource "aws_lambda_permission" "allow_cloudwatch_account_event" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "account_event_lambda_function_error_alarm" {
-  count               = var.enable_cloudwatch_event ? 1 : 0
+  count                     = var.enable_cloudwatch_event ? 1 : 0
   alarm_name                = "${module.lambda_compute_optimiser.function_arn}_lambda_error_alarm"
   comparison_operator       = var.cloudwatch_metric_alarm_comparison_operator
   evaluation_periods        = var.cloudwatch_metric_alarm_evaulation_periods
