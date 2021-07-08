@@ -19,9 +19,9 @@ resource "aws_lambda_function" "start_crawler" {
 
   environment {
     variables = {
-      EC2_CRAWLER = aws_glue_crawler.ec2_compute_optimizer.id
-      AUTO_CRAWLER = aws_glue_crawler.auto_compute_optimizer.id
-      EBS_CRAWLER = aws_glue_crawler.ebs_volumes_optimizer.id
+      EC2_CRAWLER    = aws_glue_crawler.ec2_compute_optimizer.id
+      AUTO_CRAWLER   = aws_glue_crawler.auto_compute_optimizer.id
+      EBS_CRAWLER    = aws_glue_crawler.ebs_volumes_optimizer.id
       LAMBDA_CRAWLER = aws_glue_crawler.lambda_optimizer.id
 
     }
@@ -33,11 +33,11 @@ resource "aws_lambda_function" "start_crawler" {
 }
 
 resource "aws_lambda_permission" "allow_s3_start_crawler" {
-  statement_id  = "AllowExecutionFroms3"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.start_crawler.function_name
-  principal     = "s3.amazonaws.com"
-  source_arn    = "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"
+  statement_id   = "AllowExecutionFroms3"
+  action         = "lambda:InvokeFunction"
+  function_name  = aws_lambda_function.start_crawler.function_name
+  principal      = "s3.amazonaws.com"
+  source_arn     = "arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"
   source_account = data.aws_caller_identity.current.account_id
 
   depends_on = [aws_lambda_function.start_crawler]

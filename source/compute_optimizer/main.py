@@ -111,6 +111,7 @@ def lambda_handler(event, context):
     lambda_function_recommendations = []
     ebs_volume_recommendations = []
     Region = os.environ["REGION"]
+    print(event)
     try:
         for record in event['Records']:
         

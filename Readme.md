@@ -1,6 +1,6 @@
 # Compute optimiser collector
 
-The purpose of this module is to collect all compute optimisation recommendations from all account in an organisation and put them into one location. This can then be queried using Athena.
+The purpose of this module is to collect all compute optimisation recommendations from all accounts either in an organisation or specific ids you pass in, and put them into one location. This can then be queried using Athena.
 It is to be deployed into the *management account* or any account that has access to the organisations data.
 
 Example Queries can be found in the athena_queries folder.
@@ -27,6 +27,10 @@ module "aws_tf_compute_optimiser_collector" {
 | alarm\_email | Email to send alerts too| string | `"example@email.com"` | Yes
 | env | End for the name of the resources created | string | `""` | no |
 | region | Region it will be deployed into | string | `""` | yes |
+Choice:
+| enable_accounts_collector | This will pull your orgonisation data into an sqs que and pass accout ids into the CO function | bolean | `"true"` | no |
+| enable_cloudwatch_event | This will all you to pass in selected account IDs rather than and org | bolean | `"false"` | no |
+| specific_accounts | Pass in string in this format with account ids. Must have enable_cloudwatch_event as true "{ \"Records\":[ { \"messageId\":\"1\", \"body\":\"123456789\" }, {\"messageId\":\"2\", \"body\":\"987654312\" } ] }" | string | `""` | no |
 
 
 ## Testing  Deployment

@@ -45,3 +45,15 @@ variable "env" {
 variable "first_of_the_month_cron" {
   default = "cron(16 1 * ? * *)"
 }
+variable "enable_cloudwatch_event" {
+  default = false
+}
+
+variable "specific_accounts" {
+  type    = string
+  default = ""
+}
+
+variable "enable_accounts_collector" {
+  default = true
+}
